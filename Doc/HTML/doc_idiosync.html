@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.10)</title>
+<title>STklos Reference Manual : (version 26.0)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -117,7 +117,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -220,6 +219,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -665,14 +665,14 @@ pre.rouge {
 </head>
 <body id="doc_idiosync" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.10)</h1>
+<h1>STklos Reference Manual : (version 26.0)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a></span></p><ul class="sectlevel1">
 <li><a href="doc_preface.html">Preface</a>
 </li>
 <li><a href="doc_introduction.html">1. Introduction</a>
@@ -708,6 +708,8 @@ pre.rouge {
 <li><a href="doc_idiosync.html#doc_stklos_libraries">A.1. STklos libraries</a>
 </li>
 <li><a href="doc_idiosync.html#doc_stklos_compiler">A.2. STklos compiler</a>
+</li>
+<li><a href="doc_idiosync.html#doc_customizing_the_reader">A.3. Customizing the reader</a>
 </li>
 </ul>
 </li>
@@ -830,6 +832,9 @@ pre.rouge {
 </li>
 <li>
 <p>lseq <em>(srfi 127)</em></p>
+</li>
+<li>
+<p>rlist <em>(srfi 101)</em></p>
 </li>
 <li>
 <p>set <em>(srfi 113)</em></p>
@@ -2465,9 +2470,10 @@ By default the compiler is in case sensitive mode.</p>
 <p>This procedure will not set the executable bit on the generated file.</p>
 </div>
 <div class="sect3">
-<h4 id="doc_compiler_flags">A.2.1. Compiler flags</h4>
+<h4 id="compflags">A.2.1. Compiler flags</h4>
 <div class="paragraph">
-<p><strong><em>STklos</em></strong> compiler behaviour can be customized by several parameters. Those parameters are described below.</p>
+<p><strong><em>STklos</em></strong> compiler behaviour can be customized by several parameters.
+Those parameters are described below.</p>
 </div>
 <div class="paragraph">
 <p><a id='P_compiler:time-display'></a>
@@ -2780,12 +2786,184 @@ how it works.</p>
 <p>See that the <code>GLOBAL-REF</code> and <code>PUSH</code> were turned by the peephole optimizer
 into <code>GLOBAL-REF-PUSH</code>.</p>
 </div>
+<div class="paragraph">
+<p><a id='P_compiler:verify-assume'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(compiler:verify-assume) </strong></code><br>
+<code><strong>(compiler:verify-assume bool) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter is used by the <code>assume</code> form (<strong><a href="http://srfi.schemers.org/srfi-145/srfi-145.html">SRFI-145</a></strong>).
+If its value is <code>#t</code>, assumptions are not verified at all (their code is
+not compiled). Otherwise, assumptions are verified.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When <strong><em>STklos</em></strong> is in debug modethe debug mode, this parameter is
+forced to <code>#t</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doc_customizing_the_reader">A.3. Customizing the reader</h3>
+<div class="paragraph">
+<p><strong><em>STklos</em></strong> reader compiler behaviour can be customized by several parameters.
+Those parameters are described below.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_read-brace-handler'></a><a id='P_read-bracket-handler'></a>
+
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(read-bracket-handler) </strong></code><br>
+<code><strong>(read-bracket-handler v) </strong></code><br>
+<code><strong>(read-brace-handler) </strong></code><br>
+<code><strong>(read-brace-handler v) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>These parameter objects permit to change the way an open curly brace ('{')
+or an open square bracket ('[') is read depending of the value of <code>v</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>if <code>v</code> is <code>#f</code>, the character is a normal character without special
+behaviour</p>
+</li>
+<li>
+<p>if <code>v</code> is <code>#t</code>, the character delimits the beginning of a list ended by
+the corresponding closing bracket (or brace).</p>
+</li>
+<li>
+<p>if <code>v</code> is not a boolean, it must be a procedure which takes a parameter
+(a port). This procedure will be called by <code>read</code>, and the value it returns
+will be the value returned by <code>read</code>. Note that the opening characer is
+still present in the port when the procedure starts.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>read-bracket-handler</code> is <code>#t</code>, and</p>
+</li>
+<li>
+<p><code>read-brace-handler</code> is <code>#f</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="c1">;; Read a string delimited by curly braces (use '\' to quote a character</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">read-upstring</span> <span class="nv">port</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">read-char</span> <span class="nv">port</span><span class="p">)</span>                  <span class="c1">;; skip open brace</span>
+  <span class="p">(</span><span class="k">let</span> <span class="nv">Loop</span> <span class="p">((</span><span class="nf">c</span>    <span class="p">(</span><span class="nb">peek-char</span> <span class="nv">port</span><span class="p">))</span>
+             <span class="p">(</span><span class="nf">res</span> <span class="o">'</span><span class="p">()))</span>
+    <span class="p">(</span><span class="k">cond</span>
+     <span class="p">((</span><span class="nb">eof-object?</span> <span class="nv">c</span><span class="p">)</span>               <span class="c1">;; EOF</span>
+      <span class="p">(</span><span class="nf">error</span> <span class="ss">'read-upstring</span> <span class="s">"EOF encountered"</span><span class="p">))</span>
+
+     <span class="p">((</span><span class="nb">char=?</span> <span class="nv">c</span> <span class="o">#</span><span class="err">\}</span><span class="p">)</span>                <span class="c1">;; End of list</span>
+      <span class="p">(</span><span class="nb">read-char</span> <span class="nv">port</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">list-&gt;string</span> <span class="p">(</span><span class="nf">reverse!</span> <span class="nv">res</span><span class="p">)))</span>
+
+     <span class="p">(</span><span class="k">else</span>                         <span class="c1">;; Other char</span>
+      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">ch</span> <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">char=?</span> <span class="nv">c</span> <span class="o">#</span><span class="err">\\</span><span class="p">)</span> <span class="c1">;; See if char is quoted</span>
+                    <span class="p">(</span><span class="k">begin</span> <span class="p">(</span><span class="nb">read-char</span> <span class="nv">port</span><span class="p">)</span> <span class="p">(</span><span class="nb">peek-char</span> <span class="nv">port</span><span class="p">))</span> <span class="c1">;; as is</span>
+                    <span class="p">(</span><span class="nb">char-upcase</span> <span class="nv">c</span><span class="p">))))</span>                        <span class="c1">;; upper-case</span>
+        <span class="p">(</span><span class="nb">read-char</span> <span class="nv">port</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">Loop</span> <span class="p">(</span><span class="nb">peek-char</span> <span class="nv">port</span><span class="p">)</span>  <span class="p">(</span><span class="nb">cons</span> <span class="nv">ch</span> <span class="nv">res</span><span class="p">)))))))</span>
+
+<span class="p">(</span><span class="nf">read-brace-handler</span> <span class="nv">read-upstring</span><span class="p">)</span>
+<span class="err">{</span><span class="nv">abcde</span><span class="err">}</span>              <span class="nv">=&gt;</span> <span class="s">"ABCDE"</span>
+<span class="err">{</span><span class="nv">ab</span><span class="err">\</span><span class="nv">cde</span><span class="err">}</span>             <span class="nv">=&gt;</span> <span class="s">"ABcDE"</span>
+<span class="err">{</span><span class="nv">ab</span><span class="err">\{</span><span class="nv">xyz</span><span class="err">\}</span><span class="nv">cd</span><span class="err">}</span>        <span class="nv">=&gt;</span> <span class="s">"AB{XYZ}CD"</span>
+
+<span class="p">(</span><span class="nf">read-brace-handler</span> <span class="no">#t</span><span class="p">)</span>
+<span class="o">'</span><span class="err">{</span><span class="mi">1</span> <span class="mi">2</span> <span class="err">{</span><span class="mi">3</span> <span class="mi">4</span><span class="err">}</span> <span class="mi">5</span> <span class="mi">6</span><span class="err">}</span>     <span class="nv">=&gt;</span>  <span class="p">(</span><span class="nf">1</span> <span class="mi">2</span> <span class="p">(</span><span class="nf">3</span> <span class="mi">4</span><span class="p">)</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_define-read-directive'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(define-read-directive name expr1 expr2 &#8230;&#8203;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The form <code>define-read-directive</code> adds a reading directive that will be recognized
+by the reader. The new reading directive will start with a sharp character
+('#') followed by the characters of <code>name</code>. When the reader recognizes the read
+directive, it executes the sequence of expressions <code>expr1</code> <code>expr2</code> &#8230;&#8203;</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When the expressions <code>expr1</code> <code>expr2</code> &#8230;&#8203;, the thunk functions
+<code>current-port</code> and  <code>current-directive</code> are defined in their
+dynamic environment. They can  respectively be used to access the port
+where the directive was read and it&#8217;s name as a string.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-read-directive</span> <span class="nv">!underscore-numbers</span>    <span class="p">(</span><span class="nf">accept-srfi-169-numbers</span> <span class="no">#t</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">define-read-directive</span> <span class="nv">!no-underscore-numbers</span> <span class="p">(</span><span class="nf">accept-srfi-169-numbers</span> <span class="no">#f</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">list</span> <span class="o">#</span><span class="nv">!underscore-numbers</span>    <span class="p">(</span><span class="nb">symbol?</span> <span class="ss">'1_000</span><span class="p">)</span> <span class="p">(</span><span class="nb">integer?</span> <span class="ss">'1_000</span><span class="p">)</span>
+      <span class="o">#</span><span class="nv">!no-underscore-numbers</span> <span class="p">(</span><span class="nb">symbol?</span> <span class="ss">'1_000</span><span class="p">)</span> <span class="p">(</span><span class="nb">integer?</span> <span class="ss">'1_000</span><span class="p">))</span>
+                        <span class="nv">=&gt;</span> <span class="p">(</span><span class="no">#f</span> <span class="no">#t</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span></code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="doc_bibliography.html">Bibliography</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="FDL.html">Appendix B: GNU Free Documentation License</a> →</p>
+<p>← Previous: <a href="doc_bibliography.html">Bibliography</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a> | Next: <a href="FDL.html">Appendix B: GNU Free Documentation License</a> →</p>
 </div>
 </div>
 <div id="footnotes">

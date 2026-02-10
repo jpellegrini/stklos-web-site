@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.10)</title>
+<title>STklos Reference Manual : (version 26.0)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -117,7 +117,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -220,6 +219,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -665,14 +665,14 @@ pre.rouge {
 </head>
 <body id="doc_srfis" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.10)</h1>
+<h1>STklos Reference Manual : (version 26.0)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a></span></p><ul class="sectlevel1">
 <li><a href="doc_preface.html">Preface</a>
 </li>
 <li><a href="doc_introduction.html">1. Introduction</a>
@@ -742,7 +742,7 @@ SRFI <a href="http://srfi.schemers.org">site</a>.</p>
 <div class="sect2">
 <h3 id="doc_supported_srfis">13.1. Supported SRFIs</h3>
 <div class="paragraph">
-<p><strong><em>STklos</em></strong> supports <strong>126</strong> finalized SRFIS.
+<p><strong><em>STklos</em></strong> supports <strong>133</strong> finalized SRFIS.
 Some of these SRFIS are <em>embedded</em> and some are <em>external</em>.</p>
 </div>
 <div class="paragraph">
@@ -811,6 +811,7 @@ whereas an <em>external</em> needs to be loaded before use.</p>
 -  <strong><a href="http://srfi.schemers.org/srfi-96/srfi-96.html">SRFI-96</a></strong>&#8201;&#8212;&#8201;<em>SLIB Prerequisites</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-98/srfi-98.html">SRFI-98</a></strong>&#8201;&#8212;&#8201;<em>Interface to access environment variables</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-100/srfi-100.html">SRFI-100</a></strong>&#8201;&#8212;&#8201;<em>define-lambda-object</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-101/srfi-101.html">SRFI-101</a></strong>&#8201;&#8212;&#8201;<em>Purely Functional Random-Access Pairs and Lists</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-111/srfi-111.html">SRFI-111</a></strong>&#8201;&#8212;&#8201;<em>Boxes</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-112/srfi-112.html">SRFI-112</a></strong>&#8201;&#8212;&#8201;<em>Environment Inquiry</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-113/srfi-113.html">SRFI-113</a></strong>&#8201;&#8212;&#8201;<em>Sets and Bags</em><br>
@@ -868,6 +869,7 @@ whereas an <em>external</em> needs to be loaded before use.</p>
 -  <strong><a href="http://srfi.schemers.org/srfi-222/srfi-222.html">SRFI-222</a></strong>&#8201;&#8212;&#8201;<em>Compound objects</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-223/srfi-223.html">SRFI-223</a></strong>&#8201;&#8212;&#8201;<em>Generalized binary search procedures</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-224/srfi-224.html">SRFI-224</a></strong>&#8201;&#8212;&#8201;<em>Integer Mappings</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-225/srfi-225.html">SRFI-225</a></strong>&#8201;&#8212;&#8201;<em>Dictionaries</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-227/srfi-227.html">SRFI-227</a></strong>&#8201;&#8212;&#8201;<em>Optional Arguments</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-228/srfi-228.html">SRFI-228</a></strong>&#8201;&#8212;&#8201;<em>A further comparator library</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-229/srfi-229.html">SRFI-229</a></strong>&#8201;&#8212;&#8201;<em>Tagged Procedures</em><br>
@@ -878,7 +880,12 @@ whereas an <em>external</em> needs to be loaded before use.</p>
 -  <strong><a href="http://srfi.schemers.org/srfi-235/srfi-235.html">SRFI-235</a></strong>&#8201;&#8212;&#8201;<em>Combinators</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-236/srfi-236.html">SRFI-236</a></strong>&#8201;&#8212;&#8201;<em>Evaluating expressions in an unspecified order</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-238/srfi-238.html">SRFI-238</a></strong>&#8201;&#8212;&#8201;<em>Codesets</em><br>
--  <strong><a href="http://srfi.schemers.org/srfi-244/srfi-244.html">SRFI-244</a></strong>&#8201;&#8212;&#8201;<em>Multiple-value definitions</em><br></p>
+-  <strong><a href="http://srfi.schemers.org/srfi-239/srfi-239.html">SRFI-239</a></strong>&#8201;&#8212;&#8201;<em>Destructuring lists</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-244/srfi-244.html">SRFI-244</a></strong>&#8201;&#8212;&#8201;<em>Multiple-value definitions</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-253/srfi-253.html">SRFI-253</a></strong>&#8201;&#8212;&#8201;<em>Data (Type-)Checking</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-258/srfi-258.html">SRFI-258</a></strong>&#8201;&#8212;&#8201;<em>Uninterned symbols</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-260/srfi-260.html">SRFI-260</a></strong>&#8201;&#8212;&#8201;<em>Generated symbols</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-264/srfi-264.html">SRFI-264</a></strong>&#8201;&#8212;&#8201;<em>String Syntax for Scheme Regular Expressions</em><br></p>
 </div>
 </div>
 <div class="sect2">
@@ -944,7 +951,7 @@ with <strong>require</strong> or <strong>require-feature</strong>. As with embed
 </div>
 <div class="paragraph">
 <p><strong>List of external SRFIs:</strong>
-<code>srfi-1</code> <code>srfi-2</code> <code>srfi-4</code> <code>srfi-5</code> <code>srfi-7</code> <code>srfi-9</code> <code>srfi-13</code> <code>srfi-14</code> <code>srfi-17</code> <code>srfi-19</code> <code>srfi-25</code> <code>srfi-26</code> <code>srfi-27</code> <code>srfi-29</code> <code>srfi-35</code> <code>srfi-36</code> <code>srfi-37</code> <code>srfi-41</code> <code>srfi-43</code> <code>srfi-48</code> <code>srfi-51</code> <code>srfi-54</code> <code>srfi-59</code> <code>srfi-60</code> <code>srfi-61</code> <code>srfi-64</code> <code>srfi-66</code> <code>srfi-69</code> <code>srfi-74</code> <code>srfi-89</code> <code>srfi-94</code> <code>srfi-95</code> <code>srfi-96</code> <code>srfi-100</code> <code>srfi-113</code> <code>srfi-115</code> <code>srfi-116</code> <code>srfi-117</code> <code>srfi-125</code> <code>srfi-127</code> <code>srfi-128</code> <code>srfi-129</code> <code>srfi-130</code> <code>srfi-132</code> <code>srfi-133</code> <code>srfi-134</code> <code>srfi-135</code> <code>srfi-137</code> <code>srfi-141</code> <code>srfi-144</code> <code>srfi-151</code> <code>srfi-152</code> <code>srfi-154</code> <code>srfi-156</code> <code>srfi-158</code> <code>srfi-160</code> <code>srfi-161</code> <code>srfi-162</code> <code>srfi-170</code> <code>srfi-171</code> <code>srfi-173</code> <code>srfi-174</code> <code>srfi-175</code> <code>srfi-178</code> <code>srfi-180</code> <code>srfi-185</code> <code>srfi-189</code> <code>srfi-190</code> <code>srfi-196</code> <code>srfi-207</code> <code>srfi-214</code> <code>srfi-215</code> <code>srfi-216</code> <code>srfi-217</code> <code>srfi-221</code> <code>srfi-222</code> <code>srfi-223</code> <code>srfi-224</code> <code>srfi-227</code> <code>srfi-228</code> <code>srfi-229</code> <code>srfi-230</code> <code>srfi-232</code> <code>srfi-233</code> <code>srfi-234</code> <code>srfi-235</code> <code>srfi-236</code> <code>srfi-238</code></p>
+<code>srfi-1</code> <code>srfi-2</code> <code>srfi-4</code> <code>srfi-5</code> <code>srfi-7</code> <code>srfi-9</code> <code>srfi-13</code> <code>srfi-14</code> <code>srfi-17</code> <code>srfi-19</code> <code>srfi-25</code> <code>srfi-26</code> <code>srfi-27</code> <code>srfi-29</code> <code>srfi-35</code> <code>srfi-36</code> <code>srfi-37</code> <code>srfi-41</code> <code>srfi-43</code> <code>srfi-48</code> <code>srfi-51</code> <code>srfi-54</code> <code>srfi-59</code> <code>srfi-60</code> <code>srfi-61</code> <code>srfi-64</code> <code>srfi-66</code> <code>srfi-69</code> <code>srfi-74</code> <code>srfi-89</code> <code>srfi-94</code> <code>srfi-95</code> <code>srfi-96</code> <code>srfi-100</code> <code>srfi-101</code> <code>srfi-113</code> <code>srfi-115</code> <code>srfi-116</code> <code>srfi-117</code> <code>srfi-125</code> <code>srfi-127</code> <code>srfi-128</code> <code>srfi-129</code> <code>srfi-130</code> <code>srfi-132</code> <code>srfi-133</code> <code>srfi-134</code> <code>srfi-135</code> <code>srfi-137</code> <code>srfi-141</code> <code>srfi-144</code> <code>srfi-151</code> <code>srfi-152</code> <code>srfi-154</code> <code>srfi-156</code> <code>srfi-158</code> <code>srfi-160</code> <code>srfi-161</code> <code>srfi-162</code> <code>srfi-170</code> <code>srfi-171</code> <code>srfi-173</code> <code>srfi-174</code> <code>srfi-175</code> <code>srfi-178</code> <code>srfi-180</code> <code>srfi-185</code> <code>srfi-189</code> <code>srfi-190</code> <code>srfi-196</code> <code>srfi-207</code> <code>srfi-214</code> <code>srfi-215</code> <code>srfi-216</code> <code>srfi-217</code> <code>srfi-221</code> <code>srfi-222</code> <code>srfi-223</code> <code>srfi-224</code> <code>srfi-225</code> <code>srfi-227</code> <code>srfi-228</code> <code>srfi-229</code> <code>srfi-230</code> <code>srfi-232</code> <code>srfi-233</code> <code>srfi-234</code> <code>srfi-235</code> <code>srfi-236</code> <code>srfi-238</code> <code>srfi-239</code> <code>srfi-253</code> <code>srfi-258</code> <code>srfi-260</code> <code>srfi-264</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -1025,6 +1032,10 @@ are given <a href="doc_srfis.html#feature_identifiers">Table 2</a>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">hash-tables</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">srfi-69</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rpair</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">srfi-101</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boxes</p></td>
@@ -1115,6 +1126,10 @@ are given <a href="doc_srfis.html#feature_identifiers">Table 2</a>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">srfi-189</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dictionaries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">srfi-225</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ini-files</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">srfi-233</p></td>
 </tr>
@@ -1170,8 +1185,10 @@ running on.</p>
 <p>
 
 <strong><a href="http://srfi.schemers.org/srfi-4/srfi-4.html">SRFI-4</a></strong> is fully supported and is extended to provide the
-additional <strong>c64vector</strong> and <strong>c128vector</strong> types of <strong><a href="http://srfi.schemers.org/srfi-160/srfi-160.html">SRFI-160</a></strong> (<em>Homogeneous numeric vector libraries</em>).
-<a id='P_uvector-tag'></a><a id='P_uvector->list'></a><a id='P_uvector-set!'></a><a id='P_uvector-ref'></a><a id='P_uvector-length'></a><a id='P_uvector?'></a>
+additional <strong>c64vector</strong> and <strong>c128vector</strong> types of <strong><a href="http://srfi.schemers.org/srfi-160/srfi-160.html">SRFI-160</a></strong> (<em>Homogeneous numeric vector libraries</em>).</p>
+</div>
+<div class="paragraph">
+<p><a id='P_uvector-tag'></a><a id='P_uvector->list'></a><a id='P_uvector-set!'></a><a id='P_uvector-ref'></a><a id='P_uvector-length'></a><a id='P_uvector?'></a>
 
 
 
@@ -1207,6 +1224,64 @@ of the uniform vector, as a symbol</p>
 <span class="p">(</span><span class="nf">uvector-tag</span> <span class="o">#</span><span class="nv">u8</span><span class="p">(</span><span class="nf">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>   <span class="nv">=&gt;</span> <span class="nv">u8</span>
 <span class="p">(</span><span class="nf">uvector-tag</span> <span class="o">#</span><span class="nv">c32</span><span class="p">())</span>       <span class="nv">=&gt;</span> <span class="nv">c32</span></code></pre>
 </div>
+</div>
+<div id="accept_uvector_syntax" class="paragraph">
+<p><a id='P_accept-uvector-syntax'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(accept-uvector-syntax) </strong></code><br>
+<code><strong>(accept-uvector-syntax v) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>SRFIS which define homogeneous or uniform vectors permit to have
+an extended lexical syntax for such objects (<code>#s8</code>, <code>#u64</code> &#8230;&#8203;).
+The parameter <code>accept-uvector-syntax</code> permits to accept or not the
+reading of this extended syntax depending of the value of <code>v</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, <strong><em>STklos</em></strong> does not allow the reading of this extended syntax
+for uniform. Use this parameter object to permit the use of this extended
+syntax.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Extended syntax for bytevectors is always accepted, since it is
+R<sup>7</sup>RS. Loading or importing <strong><a href="http://srfi.schemers.org/srfi-4/srfi-4.html">SRFI-4</a></strong> or <strong><a href="http://srfi.schemers.org/srfi-160/srfi-160.html">SRFI-160</a></strong> will allow the reading of this extended lexical syntax.
+</td>
+</tr>
+</table>
+</div>
+<div id="uvector_syntax_directive" class="paragraph">
+<p>
+
+Furthermore, <strong><em>STklos</em></strong> defines two read directives:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#!uvector-syntax</code> to allow the reading of the extended lexical syntax for
+uniform vectors (such as <code>#s8</code> or <code>#f32</code>, &#8230;&#8203;)</p>
+</li>
+<li>
+<p><code>#!no-uvector-syntax</code> to forbid the reading of uniform vector lexical syntax.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When this SRFI is imported/loaded, <strong><em>STklos</em></strong> reader accepts uniform vectors.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2056,6 +2131,72 @@ is more general than the one defined this SRFI.</p>
 See <em><a href="doc_exceptions_and_conditions.html#doc_predefined_conditions">Section 7.3</a></em> for the predefined conditions
 and when it is required to load this file.</p>
 </div>
+<div class="paragraph">
+<p>Furthermore, this SRFI exports also the helper syntax <code>define-new-error</code>:
+<a id='P_define-new-error'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(define-new-error name) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Declares a new error with name <code>&amp;name</code>. This will expand to
+<code>define-condition-type</code> (described in SRFI-35),
+and the effect will be that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a new condition of type <code>&amp;error-message</code> is created, with a <code>&amp;</code>
+sign prepended to <code>name</code></p>
+</li>
+<li>
+<p>a new predicate is created, with a <code>&amp;</code> sign prepended and a
+question mark (<code>?</code>) appended to <code>name</code></p>
+</li>
+<li>
+<p>a new procedure called <code>name</code> is created. This procedure will
+signal errors of this new type.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">import</span> <span class="p">(</span><span class="nf">srfi</span> <span class="mi">35</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">define-new-error</span> <span class="nv">big-error</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">apropos</span> <span class="ss">'big-error</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">&amp;big-error</span> <span class="nv">&amp;big-error?</span> <span class="nv">big-error</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">describe</span> <span class="nv">&amp;big-error</span><span class="p">)</span>
+<span class="o">#</span><span class="p">[</span><span class="nf">condition-type</span> <span class="nv">&amp;big-error</span> <span class="mi">139844680604416</span><span class="p">]</span> <span class="nv">is</span> <span class="nv">a</span> <span class="nv">condition</span> <span class="nv">type</span>
+                                             <span class="nv">whose</span> <span class="nv">name</span> <span class="nv">is</span> <span class="nv">&amp;big-error</span><span class="o">.</span>
+<span class="nv">Parent</span> <span class="nv">of</span> <span class="nv">condition</span> <span class="nv">type:</span> <span class="nv">&amp;error-message</span>
+<span class="nv">Fields</span> <span class="nv">of</span> <span class="nv">condition</span> <span class="nv">type:</span>
+    <span class="nv">location</span>
+    <span class="nv">backtrace</span>
+    <span class="nv">message</span>
+    <span class="nv">r7rs-msg</span>
+    <span class="nv">r7rs-irritants</span>
+
+<span class="nv">&amp;big-error?</span> <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">closure</span> <span class="nv">&amp;big-error?</span><span class="p">]</span>
+<span class="nv">big-error</span>   <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">closure</span> <span class="nv">big-error</span><span class="p">]</span>
+
+<span class="p">(</span><span class="nf">big-error</span> <span class="s">"Huge mistake: ~S"</span> <span class="mi">14</span><span class="p">)</span>
+<span class="nv">****</span> <span class="nv">Error:</span>
+<span class="nv">big-error:</span> <span class="nv">Huge</span> <span class="nv">mistake:</span> <span class="mi">14</span>
+
+<span class="p">(</span><span class="nf">big-error</span> <span class="ss">'callee</span> <span class="s">"Huge mistake: ~S"</span> <span class="mi">14</span><span class="p">)</span>
+<span class="nv">****</span> <span class="nv">Error:</span>
+<span class="nv">callee:</span> <span class="nv">Huge</span> <span class="nv">mistake:</span> <span class="mi">14</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="doc_srfi_36io_conditions">srfi-36&#8201;&#8212;&#8201;I/O Conditions</h4>
@@ -2110,6 +2251,20 @@ To obtain the symbol <code>:</code> in <strong><em>STklos</em></strong>, you mus
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="doc_srfi_101purely_functional_random_access_pairs_and_lists">srfi-101&#8201;&#8212;&#8201;Purely Functional Random-Access Pairs and Lists</h4>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong><em>STklos</em></strong> implements <strong><a href="http://srfi.schemers.org/srfi-101/srfi-101.html">SRFI-101</a></strong>. However, the
+implementation of that SRFI is incompatible with <code>full-syntax</code>,
+which redefines <code>eval</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4497,14 +4652,39 @@ use with <code>cond-expand</code> in the compiled code only. It will not include
 </div>
 </div>
 <div class="sect3">
+<h4 id="doc_srfi_160homogeneous_numeric_vector_libraries">srfi-160&#8201;&#8212;&#8201;Homogeneous numeric vector libraries</h4>
+<div class="paragraph">
+<p>
+
+<strong><a href="http://srfi.schemers.org/srfi-160/srfi-160.html">SRFI-160</a></strong> is fully supported. See also the
+<em><a href="doc_srfis.html#accept_uvector_syntax"><code>accept-uvector-syntax</code> parameter object</a></em> and the
+ <em><a href="doc_srfis.html#uvector_syntax_directive"><code>#!uvector-syntax</code> read directive</a></em>.</p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="doc_srfi_169underscores_in_numbers">srfi-169&#8201;&#8212;&#8201;Underscores in numbers</h4>
 <div class="paragraph">
 <p>
 
 
 
-<strong><a href="http://srfi.schemers.org/srfi-169/srfi-169.html">SRFI-169</a></strong> is fully supported. See <em><a href="doc_stklos_customization.html#srfi169">parameter <code>accept-srfi-169-numbers</code></a></em> to eventually forbid the usage of
-underscores in numbers.</p>
+<strong><a href="http://srfi.schemers.org/srfi-169/srfi-169.html">SRFI-169</a></strong> is fully supported. See <em><a href="doc_stklos_customization.html#srfi169">parameter <code>accept-srfi-169-numbers</code></a></em> to  eventually accept/forbid the usage of underscores in numbers.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, <strong><em>STklos</em></strong> defines two read directives:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#!underscore-numbers</code> to allow the reading of  number with underscores, and</p>
+</li>
+<li>
+<p><code>#!no-underscore-numbers</code> to forbid the reading of  number with underscores.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default, the <strong><em>STklos</em></strong> reader accepts numbers with underscores.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4596,7 +4776,7 @@ is a list of triplets (code-number symbol message) where <code>symbol</code> and
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="doc_using_the_slib_package.html">Using the SLIB package</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_bibliography.html">Bibliography</a> →</p>
+<p>← Previous: <a href="doc_using_the_slib_package.html">Using the SLIB package</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a> | Next: <a href="doc_bibliography.html">Bibliography</a> →</p>
 </div>
 </div>
 <div id="footnotes">

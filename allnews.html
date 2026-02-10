@@ -36,6 +36,143 @@
 
 
 <!-- Local Variables: mode: "html" End: -->
+<h2 id="version-26.0-released-2026-02-10">Version “26.0” released <span
+class="rdate">2026-02-10</span></h2>
+<p><em>Version numbering scheme changed: the first number corresponds to
+the year of the version. The number after dot is the rank of this
+version in the year (starting from 0).</em></p>
+<p>This version principally enhances <strong><em>STklos</em></strong>
+performance: compiler is faster and, some Scheme primitives have been
+rewritten in C, several numerical primitives have been optimized (thanks
+to Jerônimo Pellegrini). As usual a bunch of new SRFIs have been
+implemented.</p>
+<p><strong>Contributors for this version</strong>:</p>
+<ul>
+<li>Jerônimo Pellegrini (<a href="https://github.com/jpellegrini"><span
+class="citation" data-cites="jpellegrini">@jpellegrini</span></a>)</li>
+<li>Retropikzel (<a href="https://github.com/Retropikzel"><span
+class="citation" data-cites="Retropikzel">@Retropikzel</span></a>)</li>
+</ul>
+<p><strong>Enhancements</strong></p>
+<ul>
+<li><p>Globally, everything is a bit faster:</p>
+<ul>
+<li>some often used list primitives have been rewritten in C</li>
+<li>Scheme object allocation uses now a pool of pre-allocatted
+cells</li>
+<li>compiler is faster</li>
+</ul></li>
+<li><p><strong><em>STklos</em></strong> can be compiled with
+<code>-std=c23</code></p></li>
+<li><p>Reader:</p>
+<ul>
+<li>Accept the Common Lisp syntax for complex numbers</li>
+<li>Accept symbols with a leading sharp character</li>
+<li>Use can define new read directives</li>
+<li>new directives <code>#!uvector-syntax</code> and
+<code>#!no-uvector-syntax</code> to allow/forbid the reading of unifom
+vectors.</li>
+<li>Skip characters until end of line when an error occurs in the REPL
+to avoid cascading errors.</li>
+<li>the behaviour of the reader can be customized when an opening angle
+bracket (or curly brace) is encountered.</li>
+</ul></li>
+<li><p>VM:</p>
+<ul>
+<li>added specialized instruction for <code>pair?</code> testing</li>
+<li>added new instruction for <code>if</code> without
+<code>else</code></li>
+</ul></li>
+<li><p><code>eval</code> can now evaluate an expression in a local
+(rather global) environment</p></li>
+<li><p>Correct/enhance implementation of numerical functions in some
+corner cases (in particular with NaNs and infinities).</p></li>
+<li><p>functions in R7RS libraries can be auto-loaded</p></li>
+<li><p><strong>Syntax</strong>:</p>
+<ul>
+<li>implement ellipsis escaping</li>
+<li>implementation enhancement of <code>let-syntax</code> and
+<code>define-syntax</code></li>
+<li><code>syntax-rules</code> returns now a matching function</li>
+<li>implement vector patterns in <code>syntax-rules</code></li>
+<li>change: syntax value cannot be used in an expression</li>
+<li>all fundamental forms are now syntax and can be redefined as
+required by R⁷RS (they were special forms before)</li>
+<li><code>let-syntax</code> accepts Scheme syntax as wall as Lisp like
+macros.</li>
+</ul></li>
+<li><p><code>describe</code> has been extended to give better
+information on certain object types</p></li>
+<li><p><strong>FFI:</strong></p>
+<ul>
+<li>code has been enhanced and should be more secure.</li>
+<li>fixed precision problem between float and double</li>
+<li>permit to access array elements</li>
+</ul></li>
+<li><p><strong>Compiler</strong></p>
+<ul>
+<li>some new optimizations</li>
+<li>enhanced the code rewriter.</li>
+</ul></li>
+<li><p>Added support for the R7RS-large library
+<code>(scheme rlist)</code></p></li>
+</ul>
+<p><strong>Extensions</strong></p>
+<ul>
+<li><strong>GTklos</strong> extension (GTK+ bindings)
+<ul>
+<li>a documentation has been added</li>
+<li>code rewriting and widgets are more coherent</li>
+<li>deleted GTK+ deprecated properties</li>
+<li>Library paths are guessed for system which do not install libraries
+in standard places</li>
+</ul></li>
+</ul>
+<p><strong>New primitives / parameter objects</strong>:</p>
+<ul>
+<li><code>pair-immutable!</code></li>
+<li><code>c-size-of</code></li>
+<li><code>cpointer-ref</code></li>
+<li><code>cpointer-set!</code></li>
+<li><code>cpointer-ref/abs</code></li>
+<li><code>cpointer-set/abs!</code></li>
+<li><code>symbol-interned?</code></li>
+<li><code>compiler-current-port</code></li>
+<li><code>includes-use-load-path</code></li>
+<li><code>readline-startup-hook</code></li>
+<li><code>readline-set-option!</code></li>
+<li><code>readline-bind!</code></li>
+<li><code>compiler:verify-assume</code></li>
+<li><code>accept-uvector-syntax</code></li>
+<li><code>define-read-directive</code></li>
+<li><code>read-bracket-handler</code></li>
+<li><code>read-brace-handler</code></li>
+</ul>
+<p><strong>Updated embedded libraries</strong></p>
+<ul>
+<li><code>libffi</code> updated to version 3.5.2</li>
+<li><code>pcre2</code> updated to version 10.46</li>
+<li><code>libgc</code> updated to version 8.2.12</li>
+</ul>
+<p><strong>New supported SRFI</strong></p>
+<ul>
+<li>SRFI-101: Purely Functional Random-Access Pairs and Lists</li>
+<li>SRFI-234: Topological Sorting</li>
+<li>SRFI 239: Destructuring Lists</li>
+<li>SRFI-253: Data (Type-)Checking</li>
+<li>SRFI-225: Dictionnaries</li>
+<li>SRFI-258: Uninterned symbols</li>
+<li>SRFI-260: Generated Symbols</li>
+<li>SRFI-264: String Syntax for Scheme Regular Expressions</li>
+</ul>
+<p><strong>Misc:</strong></p>
+<ul>
+<li>Updated documentation</li>
+<li>Better error messages</li>
+<li>Added tests</li>
+<li>Code cleaning and optimizations</li>
+<li>Bug fixes</li>
+</ul>
 <h2 id="version-2.10-released-2024-10-10">Version “2.10” released <span
 class="rdate">2024-10-10</span></h2>
 <p>This version of <strong><em>STklos</em></strong> mostly enhances the
@@ -1308,7 +1445,7 @@ class="rdate">2001-01-17</span></h2>
      </article>
     <footer class="foot w3-container w3-tab w3-small w3-light-grey">
       <span class="w3-bar-item"><b>STklos</b></span>
-      <span class="w3-bar-item w3-right"><i>Updated:</i> 10-Oct-2024 17:59&nbsp;&nbsp;</span>
+      <span class="w3-bar-item w3-right"><i>Updated:</i> 10-Feb-2026 13:46&nbsp;&nbsp;</span>
     </footer>
   </body>
 </html>

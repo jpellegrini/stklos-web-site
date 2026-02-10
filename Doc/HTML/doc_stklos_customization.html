@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.10)</title>
+<title>STklos Reference Manual : (version 26.0)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -117,7 +117,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -220,6 +219,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -665,14 +665,14 @@ pre.rouge {
 </head>
 <body id="doc_stklos_customization" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.10)</h1>
+<h1>STklos Reference Manual : (version 26.0)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a></span></p><ul class="sectlevel1">
 <li><a href="doc_preface.html">Preface</a>
 </li>
 <li><a href="doc_introduction.html">1. Introduction</a>
@@ -990,6 +990,29 @@ until the file can be loaded.</p>
 path name of the files which are loaded by <code>load</code> or <code>try-load</code> on
 the current error port, when set to a true value. If <code>load-verbose</code>
 is set to <code>#f</code>, no message is printed.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_includes-use-load-path'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(includes-use-load-path) </strong></code><br>
+<code><strong>(includes-use-load-path bool) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter controls if the <code>include</code> and <code>include-ci</code> forms use
+the <code>load-path</code> parameter. By default, the loading path is not used;
+that means that an included file is searched only in the directory
+of the file which include it. If <code>load-path</code> is used, then
+an included file is searched first in the directory which contains
+the including file, and then, in the directories given by <code>load-path</code>.</p>
 </div>
 <div class="paragraph">
 <p><a id='P_thread-handler-error-show'></a>
@@ -1371,11 +1394,123 @@ the <strong><em>STklos</em></strong> command. Otherwise, a good place to set thi
 </table>
 </div>
 </div>
+<div class="sect3">
+<h4 id="doc_repl_readline_support">10.3.4. REPL readline support</h4>
+<div class="paragraph">
+<p><a id='P_readline-set-option!'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(readline-set-option! var val) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The primitive <code>readline-set-option!</code> is defined when readline support is
+enabled. It permits to change dynamically the behaviour of the readline
+library. The list of possible variables <code>var</code> and values <code>val</code> can be found
+in in the <a href="https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html">readline documentation manual</a>.
+Both parameters, <code>var</code> and <code>val</code>, must be strings.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">readline-set-option!</span> <span class="s">"disable-completion"</span> <span class="s">"on"</span><span class="p">)</span>   <span class="c1">;; disable TAB-completion</span>
+<span class="p">(</span><span class="nf">readline-set-option!</span> <span class="s">"blink-matching-paren"</span> <span class="s">"on"</span><span class="p">)</span> <span class="c1">;; enable parenthesis flashing</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_readline-bind!'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(readline-bind! key val) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The primitive <code>readline-bind!</code> is defined when readline support is
+enabled. It permits to change dynamically the action associated to a key.
+Parameters <code>key</code> and <code>val</code> may be strings or symbols.</p>
+</div>
+<div class="paragraph">
+<p>If <code>key</code> is a symbol, it is used as a <em>keyname</em> (a key spelled out in English);
+if it is a string, it is used as a <em>keyseq</em> (a way to denote an entire key
+sequence). See the <em>readline</em> documentaion for the difference between a <em>keysym</em>
+and a <em>keyseq</em>.</p>
+</div>
+<div class="paragraph">
+<p>If <code>val</code> is a string, it indicates the characters that are inserted in the input
+buffer when the binding is triggered. If it is symbol, it denotes a <em>readline</em>
+macro name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">readline-bind!</span> <span class="ss">'Control-l</span> <span class="s">"lambda "</span><span class="p">)</span> <span class="c1">;; Typing ^L inserts the strin "lambda "</span>
+<span class="p">(</span><span class="nf">readline-bind!</span> <span class="s">"\C-l"</span>    <span class="s">"lambda "</span><span class="p">)</span> <span class="c1">;; The same thing with a keyseq</span>
+<span class="p">(</span><span class="nf">readline-bind!</span> <span class="ss">'Control-o</span> <span class="ss">'kill-whole-line</span><span class="p">)</span>  <span class="c1">;; Typing ^O kills the current line</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_readline-startup-hook'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(readline-startup-hook) </strong></code><br>
+<code><strong>(readline-startup-hook thunk) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter object can be used to read/set the hook function run
+once the readline library is initialized (and before the first prompt is
+printed). It can be used to set some readline options in your <code>stklosrc</code>
+file. For instance,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">readline-startup-hook</span>
+   <span class="p">(</span><span class="k">lambda</span><span class="p">()</span>
+     <span class="p">(</span><span class="nf">readline-set-option!</span> <span class="s">"blink-matching-paren"</span>      <span class="s">"on"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nf">readline-set-option!</span> <span class="s">"colored-completion-prefix"</span> <span class="s">"on"</span><span class="p">)))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>permit to have parenthesis flashing and more colored completions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This hook is run only if the line editor library is the
+<em>GNU readline library</em>.
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="doc_threads_mutexes_and_condition_variables.html">Threads, Mutexes and Condition Variables</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_foreign_function_interface.html">Foreign Function Interface</a> →</p>
+<p>← Previous: <a href="doc_threads_mutexes_and_condition_variables.html">Threads, Mutexes and Condition Variables</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a> | Next: <a href="doc_foreign_function_interface.html">Foreign Function Interface</a> →</p>
 </div>
 </div>
 <div id="footnotes">

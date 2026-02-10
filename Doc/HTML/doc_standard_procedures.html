@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.10)</title>
+<title>STklos Reference Manual : (version 26.0)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -117,7 +117,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -220,6 +219,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -665,14 +665,14 @@ pre.rouge {
 </head>
 <body id="doc_standard_procedures" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.10)</h1>
+<h1>STklos Reference Manual : (version 26.0)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a></span></p><ul class="sectlevel1">
 <li><a href="doc_preface.html">Preface</a>
 </li>
 <li><a href="doc_introduction.html">1. Introduction</a>
@@ -2625,7 +2625,7 @@ the value of <code>x</code> is not changed.</p>
 <p><code><strong>(inc! place) </strong></code><br>
 <code><strong>(inc! place val) </strong></code><br>
 <code><strong>(dec! place) </strong></code><br>
-<code><strong>(dec place val) </strong></code><br></p>
+<code><strong>(dec! place val) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3608,7 +3608,8 @@ There are twenty-eight of these procedures in all.</p>
 <p>Returns <code>#t</code> if <code>obj</code> is the empty list, otherwise returns <code>#f</code>.</p>
 </div>
 <div class="paragraph">
-<p><a id='P_pair-mutable?'></a>
+<p><a id='P_pair-mutable?'></a><a id='P_pair-immutable!'></a>
+
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -3617,18 +3618,30 @@ There are twenty-eight of these procedures in all.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(pair-mutable? obj) </strong></code><br></p>
+<p><code><strong>(pair-mutable? obj) </strong></code><br>
+<code><strong>(pair-immutable! obj) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a mutable pair, otherwise returns <code>#f</code>.</p>
+<p><code>Pair-mutable?</code> returns <code>#t</code> if <code>obj</code> is a mutable pair, otherwise
+returns <code>#f</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>Pair-immutable!</code> will turn the pair into an immutable one (the
+pair is modified and returned&#8201;&#8212;&#8201;no copy is made).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">pair-mutable?</span> <span class="o">'</span><span class="p">(</span><span class="nf">1</span> <span class="o">.</span> <span class="mi">2</span><span class="p">))</span>    <span class="nv">=&gt;</span> <span class="no">#f</span>
-<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="p">(</span><span class="nb">cons</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>  <span class="nv">=&gt;</span> <span class="no">#t</span>
-<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="mi">12</span><span class="p">)</span>          <span class="nv">=&gt;</span> <span class="no">#f</span></code></pre>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">pair-mutable?</span> <span class="o">'</span><span class="p">(</span><span class="nf">1</span> <span class="o">.</span> <span class="mi">2</span><span class="p">))</span>                     <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="p">(</span><span class="nb">cons</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>                   <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="mi">12</span><span class="p">)</span>                           <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="p">(</span><span class="nf">pair-immutable!</span> <span class="p">(</span><span class="nb">cons</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="no">#f</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">list</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="nv">x</span><span class="p">)</span>                            <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="nv">x</span> <span class="p">(</span><span class="nf">pair-immutable!</span> <span class="nv">x</span><span class="p">))</span>                  <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">pair-mutable?</span> <span class="nv">x</span><span class="p">)</span>                            <span class="nv">=&gt;</span> <span class="no">#f</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3685,6 +3698,32 @@ all lists have finite length and are terminated by the empty list.</p>
 <span class="p">(</span><span class="nf">improper-list?</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="ss">'b</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="no">#t</span>
 <span class="p">(</span><span class="nf">improper-list?</span> <span class="p">(</span><span class="nb">list</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>   <span class="nv">=&gt;</span> <span class="no">#f</span>
 <span class="p">(</span><span class="nf">improper-list?</span> <span class="o">#</span><span class="nv">void</span><span class="p">)</span>        <span class="nv">=&gt;</span> <span class="no">#f</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_circular-list?'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(circular-list? obj) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns <code>#t</code> if <code>obj</code> is a circular list, and <code>#f</code> otherwise.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">L</span> <span class="p">(</span><span class="nb">list</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">set-cdr!</span> <span class="p">(</span><span class="nb">cdddr</span> <span class="nv">L</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">L</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">circular-list?</span> <span class="nv">L</span><span class="p">)</span>               <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">circular-list?</span> <span class="mi">10</span><span class="p">)</span>              <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">circular-list?</span> <span class="o">'#</span><span class="mi">0</span><span class="nv">=</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span> <span class="o">.</span> <span class="o">#</span><span class="mi">0</span><span class="o">#</span><span class="p">)</span> <span class="p">)</span><span class="nv">=&gt;</span> <span class="no">#t</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4128,24 +4167,62 @@ comparison function.
 </table>
 </div>
 <div class="paragraph">
-<p><a id='P_list-copy'></a>
+<p><a id='P_list-copy'></a><a id='P_list-deep-copy'></a>
+
 </p>
 </div>
 <div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver">R<sup>7</sup>RS procedure</span></p>
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(list-copy obj) </strong></code><br></p>
+<p><code><strong>(list-copy obj) </strong></code><br>
+<code><strong>(list-deep-copy obj) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p><code>list-copy</code> recursively copies trees of pairs. If <code>obj</code> is
-not a pair, it is returned; otherwise the result is a new pair whose
-<code>car</code> and <code>cdr</code> are obtained by calling <code>list-copy</code> on
-the <code>car</code> and <code>cdr</code> of <code>obj</code>, respectively.</p>
+<p>These procedures copy trees of pairs. <code>list-copy</code> will copy the
+pairs, but wil not recurse into them for copying; but <code>list-deep-copy</code>
+will recurse into the structure, so a new tree or association list will
+be returned.</p>
+</div>
+<div class="paragraph">
+<p><code>List-deep-copy</code> is particularly useful to copy association lists when
+one needs the new list items to <strong>not</strong> be <code>eq?</code> to the old ones.</p>
+</div>
+<div class="paragraph">
+<p>Note that <code>list-deep-copy</code> will only recurse into lists, not vectors,
+structs and other data structures.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">X</span> <span class="p">(</span><span class="nb">cons</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">y</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">X</span> <span class="mi">10</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="nv">y</span> <span class="p">(</span><span class="nf">list-copy</span> <span class="nv">y</span><span class="p">))</span>                  <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="p">(</span><span class="nf">list-copy</span> <span class="nv">y</span><span class="p">)))</span>      <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="p">(</span><span class="nf">list-deep-copy</span> <span class="nv">y</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="no">#f</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="nv">X</span> <span class="o">'#</span><span class="p">(</span><span class="nf">1</span> <span class="mi">2</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">y</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">X</span> <span class="mi">10</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="nv">y</span> <span class="p">(</span><span class="nf">list-copy</span> <span class="nv">y</span><span class="p">))</span>                  <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="p">(</span><span class="nf">list-copy</span> <span class="nv">y</span><span class="p">)))</span>      <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="p">(</span><span class="nf">list-deep-copy</span> <span class="nv">y</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="no">#t</span> <span class="c1">; &lt;= didn't recurse into vector</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+R<sup>7</sup>RS defines the <code>list-copy</code> primitive, but it states that calling
+it on a circular list is an error. This is not the case in <strong><em>STklos</em></strong>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><a id='P_filter!'></a><a id='P_filter'></a>
@@ -4192,7 +4269,8 @@ modifying its <code>list</code> argument</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(remove pred list) </strong></code><br></p>
+<p><code><strong>(remove pred list) </strong></code><br>
+<code><strong>(remove! pred list) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4453,6 +4531,60 @@ The expression <code>(eq? 'mISSISSIppi 'mississippi)</code> returns <code>#f</co
 </table>
 </div>
 <div class="paragraph">
+<p><a id='P_gensym'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(gensym) </strong></code><br>
+<code><strong>(gensym prefix) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Creates a new symbol. The print name of the generated symbol
+consists of a prefix (which defaults to "G") followed by the decimal
+representation of a number. If <code>prefix</code> is specified, it must be
+either a string or a symbol.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">gensym</span><span class="p">)</span>        <span class="nv">=&gt;</span> <span class="nv">|G100|</span>
+<span class="p">(</span><span class="nf">gensym</span> <span class="s">"foo-"</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="nv">foo-101</span>
+<span class="p">(</span><span class="nf">gensym</span> <span class="ss">'foo-</span><span class="p">)</span>  <span class="nv">=&gt;</span> <span class="nv">foo-102</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_symbol-interned?'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(symbol-interned? sym) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns <code>#t</code> if <code>sym</code> is an interned symbol, and <code>#f</code> if <code>sym</code> is an
+uninterned symbol. When <code>sym</code> is not a symbol, an error is signaled.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">symbol-interned?</span> <span class="p">(</span><span class="nf">gensym</span><span class="p">))</span>      <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">symbol-interned?</span> <span class="p">(</span><span class="nf">gensym</span> <span class="s">"x-"</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">symbol-interned?</span> <span class="ss">'a</span><span class="p">)</span>            <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">symbol-interned?</span> <span class="s">"x"</span><span class="p">)</span>           <span class="nv">=&gt;</span> <span class="nv">error</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p><a id='P_string->uninterned-symbol'></a>
 </p>
 </div>
@@ -4479,34 +4611,6 @@ The expression <code>(eq? 'mISSISSIppi 'mississippi)</code> returns <code>#f</co
         <span class="p">(</span><span class="nb">eq?</span> <span class="nv">ua</span> <span class="p">(</span><span class="nf">string-&gt;uninterned-symbol</span> <span class="s">"a"</span><span class="p">))</span>
         <span class="p">(</span><span class="nb">eqv?</span> <span class="nv">ua</span> <span class="p">(</span><span class="nf">string-&gt;uninterned-symbol</span> <span class="s">"a"</span><span class="p">))))</span>
           <span class="nv">=&gt;</span> <span class="p">(</span><span class="no">#f</span> <span class="no">#t</span> <span class="no">#f</span> <span class="no">#t</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_gensym'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(gensym) </strong></code><br>
-<code><strong>(gensym prefix) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Creates a new symbol. The print name of the generated symbol
-consists of a prefix (which defaults to "G") followed by the decimal
-representation of a number. If <code>prefix</code> is specified, it must be
-either a string or a symbol.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">gensym</span><span class="p">)</span>        <span class="nv">=&gt;</span> <span class="nv">|G100|</span>
-<span class="p">(</span><span class="nf">gensym</span> <span class="s">"foo-"</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="nv">foo-101</span>
-<span class="p">(</span><span class="nf">gensym</span> <span class="ss">'foo-</span><span class="p">)</span>  <span class="nv">=&gt;</span> <span class="nv">foo-102</span></code></pre>
 </div>
 </div>
 </div>
@@ -6986,6 +7090,23 @@ sequences.</p>
 <span class="p">(</span><span class="nf">string-&gt;utf8</span> <span class="s">"λ"</span><span class="p">)</span>         <span class="nv">=&gt;</span> <span class="o">#</span><span class="nv">u8</span><span class="p">((</span><span class="mh">#xce</span> <span class="mh">#xbb</span><span class="p">)</span></code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+R<sup>7</sup>RS syntax for reading bytevectors is always available.  However,
+various SRFIs or the R<sup>7</sup>RS-large <code>(scheme vector)</code> library propose an
+extended lexical syntax for uniform/homogeneos  vectors. See the
+documentation of the <em><a href="doc_srfis.html#accept_uvector_syntax"><code>accept-uvector-syntax</code>
+parameter object</a></em>, and the <em><a href="doc_srfis.html#uvector_syntax_directive"><code>#!uvector-syntax</code>
+read directive</a></em>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="doc_control_features">4.11. Control features</h3>
@@ -7274,6 +7395,93 @@ the shortest vector runs out.</p>
                 <span class="o">'#</span><span class="p">(</span><span class="nf">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
   <span class="nv">v</span><span class="p">)</span>
        <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">(</span><span class="nf">0</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">9</span> <span class="mi">16</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_fold'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(fold kons knil list1 list2 &#8230;&#8203;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The procedure <code>kons</code> will first be applied to <code>(arg1 arg2 &#8230;&#8203; argn
+X)</code>, where <code>argj</code> is the CAR of the j-th list and <code>X</code> is <code>knil</code>.
+Then, this will be repeated, but each <code>argj</code> is updated to the next
+element in the j-th list, and <code>X</code> is updated to the result of the
+previous pass.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">fold</span> <span class="nv">-</span> <span class="mi">100</span> <span class="o">'</span><span class="p">())</span>            <span class="nv">=&gt;</span> <span class="mi">100</span>
+<span class="p">(</span><span class="nf">fold</span> <span class="nv">-</span> <span class="mi">100</span> <span class="o">'</span><span class="p">(</span><span class="nf">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>       <span class="nv">=&gt;</span> <span class="mi">-98</span>
+<span class="p">(</span><span class="nf">fold</span> <span class="nv">-</span> <span class="mi">100</span> <span class="o">'</span><span class="p">(</span><span class="nf">1</span> <span class="mi">4</span><span class="p">)</span> <span class="o">'</span><span class="p">(</span><span class="nf">5</span> <span class="mi">10</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="mi">98</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the first example, there is only an empty list, so <code>kons</code> is not
+even called, and <code>knil</code> is returned.</p>
+</div>
+<div class="paragraph">
+<p>In the second case, the operations performed were</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nb">-</span> <span class="mi">1</span> <span class="mi">100</span><span class="p">)</span>  <span class="nv">=&gt;</span> <span class="mi">-99</span>       <span class="c1">; X is -99</span>
+<span class="p">(</span><span class="nb">-</span> <span class="mi">2</span> <span class="mi">-99</span><span class="p">)</span>  <span class="nv">=&gt;</span> <span class="mi">101</span>       <span class="c1">; X is 101</span>
+<span class="p">(</span><span class="nb">-</span> <span class="mi">3</span> <span class="mi">101</span><span class="p">)</span>  <span class="nv">=&gt;</span> <span class="mi">-98</span>       <span class="c1">; final result</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the the third example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nb">-</span> <span class="mi">1</span> <span class="mi">5</span> <span class="mi">100</span><span class="p">)</span>   <span class="nv">=&gt;</span> <span class="mi">-104</span>   <span class="c1">; X is -104</span>
+<span class="p">(</span><span class="nb">-</span> <span class="mi">4</span> <span class="mi">10</span> <span class="mi">-104</span><span class="p">)</span> <span class="nv">=&gt;</span>  <span class="mi">98</span>    <span class="c1">; final result</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_reduce'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(reduce f init lst) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>lst</code> is null, the returned value is <code>init</code>. Otherwise,
+it is equivalent to <code>(fold f (car lst) (cdr lst))</code>.
+That is, <code>reduce</code> will operate on each par of consecutive
+elements of lst beginning at the leftmost position, accumulating
+the result value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">reduce</span> <span class="nv">-</span> <span class="ss">'a</span> <span class="o">'</span><span class="p">())</span>        <span class="nv">=&gt;</span> <span class="ss">'a</span>
+<span class="p">(</span><span class="nf">reduce</span> <span class="nv">-</span> <span class="ss">'a</span> <span class="o">'</span><span class="p">(</span><span class="nf">10</span> <span class="mi">40</span> <span class="mi">90</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="mi">60</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the second example, the computations are:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nb">-</span> <span class="mi">40</span> <span class="mi">10</span><span class="p">)</span>   <span class="nv">=&gt;</span> <span class="mi">30</span> <span class="c1">; will be used as second argument</span>
+<span class="p">(</span><span class="nb">-</span> <span class="mi">90</span> <span class="mi">30</span><span class="p">)</span>   <span class="nv">=&gt;</span> <span class="mi">60</span> <span class="c1">; final value</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7833,8 +8041,9 @@ in the R<sup>5</sup>RS report.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-In STklos, <code>scheme-report-environment</code> function can be called
-without the version number (defaults to 5).
+<code>scheme-report-environment</code> function can be called
+without the version number (defaults to 5). Other version values return
+an error.
 </td>
 </tr>
 </table>
@@ -10330,6 +10539,23 @@ string.  Otherwise, the output is printed on the specified port.</p>
                                 <span class="nv">=&gt;</span> <span class="s">"a new test"</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>The following code illustrates the case in which <code>port</code> is an output
+port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">out</span> <span class="p">(</span><span class="nb">open-output-file</span> <span class="s">"output.txt"</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nf">format</span> <span class="nv">out</span> <span class="s">"This goes to the file: ~x~%"</span> <span class="mi">251</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the code is executed, the file <code>output.txt</code> will contain the line
+&#8220;This goes to the file: fb&#8221;.</p>
+</div>
+<div class="paragraph">
+<p>Finally, <code>(pp (format #f "~h"))</code> will print some quick help for <code>format</code>.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -10598,6 +10824,99 @@ the list of already provided files. Providing a file permits to avoid
 subsequent loads of this file. <code>Require/provide</code> is more or less equivalent to
 a <code>require</code> followed by a <code>provide</code>. <code>Provided?</code> returns <code>#t</code> if
 <code>string</code> was already provided; it returns <code>#f</code> otherwise.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When the SLIB Portable Scheme Library is loaded, <code>require</code> is
+overloaded by a new version which accepts whose parameter may be a
+symbol or a string. If it is a symbol, the slib package is required
+(as described in the slib  documentation). If it is a string, the
+the standard <strong><em>STklos</em></strong> <code>require</code> is used.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a id='P_autoload'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(autoload spec symbol &#8230;&#8203;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This form is similar to the Emacs <code>autoload</code> macro: it registers the existence
+of a function, but postpones the loading of the file or the importation of the
+library that defines it. The  first call to the function automatically loads,
+or imports, the proper library, in order to install the real definition and
+other associated code, then runs the real definition as if it had been loaded
+all along. The specifier <code>spec</code> may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a string which denotes the file which will be required (with <code>require</code> form)
+before calling the
+function denoted by <code>symbol</code>.</p>
+</li>
+<li>
+<p>a R<sup>7</sup>RS library name denoting the library that must be imported in order to
+the function denoted by <code>symbol</code>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">autoload</span> <span class="p">(</span><span class="nf">scheme</span> <span class="nv">list</span><span class="p">)</span> <span class="nv">iota</span> <span class="nv">take</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">autoload</span> <span class="s">"utils"</span> <span class="nv">cube</span> <span class="nv">fact</span> <span class="nv">fib</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the first <code>autoload</code>, the first call of <code>iota</code> or <code>take</code> will automatically
+import the Scheme library <code>(scheme list)</code>.
+In the second call, the file "utils" will be required before calling, for the
+first time,  <code>cube</code>, <code>fact</code> or <code>fib</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>spec</code> is a string, the corresponding <code>provide</code> must be present in the file
+denoted by <code>spec</code>.</p>
+</li>
+<li>
+<p>To avoid an infinite loop, the symbols specified in the <code>autoload</code> must be
+defined in the file or library given in <code>spec</code>.</p>
+</li>
+<li>
+<p>When <code>spec</code> denotes a library, the imporation is limited only to the symbol
+which trigger this importation.</p>
+</li>
+<li>
+<p>For now, the symbols specified in the <code>atoload</code> form cannot denote a syntax name.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -11871,16 +12190,14 @@ calls is is a global counter.</p>
 <pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">T</span> <span class="p">(</span><span class="nf">make-thread</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nf">make-list</span> <span class="mi">1</span><span class="nv">_000_000</span><span class="p">)</span> <span class="p">(</span><span class="nf">eprintf</span> <span class="s">"finishn"</span><span class="p">)))))</span>
   <span class="p">(</span><span class="nf">time</span> <span class="p">(</span><span class="nf">thread-start!</span> <span class="nv">T</span><span class="p">)</span> <span class="c1">;; Launch T wich allocate 1_000_1000 cells</span>
         <span class="p">(</span><span class="nf">thread-sleep!</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">;; wait for the child thread to allocate list</span>
-        <span class="p">(</span><span class="nf">thread-join!</span> <span class="nv">T</span><span class="p">)</span>
-        <span class="mi">100</span><span class="p">))</span>
+        <span class="p">(</span><span class="nf">thread-join!</span> <span class="nv">T</span><span class="p">)))</span>
 <span class="nv">finish</span>
-    <span class="nv">Elapsed</span> <span class="nv">time:</span> <span class="mf">33.299</span> <span class="nv">ms</span>
-    <span class="nv">Allocations:</span> <span class="mi">800408</span> <span class="nv">bytes</span> <span class="nv">in</span> <span class="mi">10</span> <span class="nv">allocation</span> <span class="nv">calls</span> <span class="p">(</span><span class="nf">GC:</span> <span class="mi">0</span><span class="p">)</span>
-<span class="mi">100</span></code></pre>
+    <span class="nv">Elapsed</span> <span class="nv">time:</span> <span class="mf">9.795</span> <span class="nv">ms</span>
+    <span class="nv">Allocations:</span> <span class="mi">800384</span> <span class="nv">bytes</span> <span class="nv">in</span> <span class="mi">8</span> <span class="nv">allocation</span> <span class="nv">calls</span> <span class="p">(</span><span class="nf">GC:</span> <span class="mi">0</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The ten allocations we can see here are for theads bookeeping and are
+<p>The eight allocations we can see here are for theads bookeeping and are
 far from the million cells allocated in thread <code>T</code>.</p>
 </div>
 </div>
@@ -11907,7 +12224,7 @@ example of what <code>features</code> might return:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">features</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">STklos</span> <span class="nv">STklos-2</span><span class="o">.</span><span class="mi">10</span><span class="o">.</span><span class="nv">xxx</span> <span class="nv">exact-complex</span>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">features</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">STklos</span> <span class="nv">STklos-26</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="nv">xxx</span> <span class="nv">exact-complex</span>
                <span class="nv">ieee-float</span> <span class="nv">full-unicode</span> <span class="nv">ratios</span> <span class="nv">little-endian</span> <span class="o">...</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -12570,15 +12887,23 @@ the output of <code>str</code>.</p>
 <div class="content">
 <div class="paragraph small">
 <p><code><strong>(exit) </strong></code><br>
-<code><strong>(exit ret-code) </strong></code><br></p>
+<code><strong>(exit obj) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Exits the program with the specified integer return code. If <code>ret-code</code>
-is omitted, the program terminates with a return code of 0.
-If  program has registered exit functions with <code>register-exit-function!</code>,
-they are called (in an order which is the reverse of their call order).</p>
+<p>Runs all outstanding dynamic-wind after procedures, terminates
+the running program, and communicates an exit value to the
+operating system. If no argument is supplied,
+or if <code>obj</code> is <code>#t</code>, the exit procedure communicates
+to the operating system that the program exited normally.
+If obj is <code>#f</code>, the <code>exit</code> procedure communicates to
+the operating system that the program exited abnormally.</p>
+</div>
+<div class="paragraph">
+<p>If <code>obj</code> is an integer, it will be returned to the operating system.
+Otherwise the value returned by <code>exit</code> indicates that the program
+exited abnormally.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -12587,11 +12912,20 @@ they are called (in an order which is the reverse of their call order).</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <strong><em>STklos</em></strong> <code>exit</code> primitive accepts also an
-integer value as parameter (R<sup>7</sup>RS accepts only a boolean).
+The parameters which eventualy follow
 </td>
 </tr>
 </table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">register-exit-function!</span> <span class="p">(</span><span class="k">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">display</span> <span class="s">"FINAL"</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">dynamic-wind</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">1</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">exit</span><span class="p">)</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">3</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">4</span><span class="p">)))</span>                   <span class="nv">|-</span> <span class="mi">124</span><span class="nv">FINAL</span> <span class="p">(</span><span class="k">and</span> <span class="nv">exit</span><span class="p">)</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><a id='P_emergency-exit'></a>
@@ -12604,7 +12938,7 @@ integer value as parameter (R<sup>7</sup>RS accepts only a boolean).
 <div class="content">
 <div class="paragraph small">
 <p><code><strong>(emergency-exit) </strong></code><br>
-<code><strong>(emergency-exit ret-code) </strong></code><br></p>
+<code><strong>(emergency-exit obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -12613,18 +12947,19 @@ integer value as parameter (R<sup>7</sup>RS accepts only a boolean).
 dynamic-wind <em>after</em> procedures and communicates an exit
 value to the operating system in the same manner as <code>exit</code>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <strong><em>STklos</em></strong> <code>emergency-exit</code> primitive accepts also an
-integer value as parameter (R<sup>7</sup>RS accepts only a boolean).
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The registered procedures with <code>register-exit-function!</code>, if any,
+are not executed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">register-exit-function!</span> <span class="p">(</span><span class="k">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">display</span> <span class="s">"FINAL"</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">dynamic-wind</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">1</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">exit</span><span class="p">)</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">3</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">display</span> <span class="mi">4</span><span class="p">)))</span>                   <span class="nv">|-</span> <span class="mi">12</span> <span class="p">(</span><span class="k">and</span> <span class="nv">exit</span><span class="p">)</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><a id='P_die'></a>
@@ -16041,12 +16376,23 @@ Consequently, to use <strong><a href="http://srfi.schemers.org/srfi-1/srfi-1.htm
 </div>
 <div class="paragraph">
 <p>The special form <code>assume</code> is defined in <strong><a href="http://srfi.schemers.org/srfi-145/srfi-145.html">SRFI-145</a></strong> (<em>Assumptions</em>).
-When <strong><em>STklos</em></strong> is in debug mode, this special form is an expression
-that evaluates to the value of <code>obj</code> if <code>obj</code> evaluates to a true
-value and it is an error if <code>obj</code> evaluates to a false value.</p>
+When parameter object <code>compiler:verify-assume</code> is true, this special
+form is an expression  that evaluates to the value of <code>obj</code> if <code>obj</code>
+evaluates to a true value and it is an error if <code>obj</code> evaluates to a
+false value. When the parameter object <code>compiler:verify-assume</code> is
+false the call  to <code>assume</code> is elided (see <a href="doc_idiosync.html#compflags">Section A.2.1</a>).</p>
 </div>
-<div class="paragraph">
-<p>When <strong><em>STklos</em></strong> is not in debug mode, the call to <code>assume</code> is elided.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When <strong><em>STklos</em></strong> is run in debug mode, assumptions are evaluated.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>
@@ -16457,11 +16803,39 @@ currently traced.</p>
 <div class="paragraph">
 <p>This function tries to obtain a pretty-printed representation of <code>sexpr</code>.
 The pretty-printed form is written on <code>port</code> with lines which are no
-more long than <code>width</code> characters. If <code>port</code> is omitted if defaults to
+more long than <code>width</code> characters. If <code>port</code> is omitted it defaults to
 the current error port. As a special convention, if <code>port</code> is <code>#t</code>,
 output goes to the current output port and if <code>port</code> is <code>#f</code>, the output
-is returned as a string by <code>pretty-print</code>.
-Note that <code>pp</code> is another name for <code>pretty-print</code>.</p>
+is returned as a string by <code>pretty-print</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that <code>pp</code> is another name for <code>pretty-print</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">pp</span> <span class="o">'</span><span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="p">(</span><span class="nb">expt</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">f</span> <span class="nv">g</span> <span class="nv">h</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">i</span> <span class="nv">j</span><span class="p">)))</span> <span class="p">))</span> <span class="nv">:width</span> <span class="mi">25</span><span class="p">)</span>
+<span class="nv">=&gt;</span> <span class="p">(</span><span class="nb">display</span>
+     <span class="p">(</span><span class="nb">+</span> <span class="nv">a</span>
+        <span class="nv">b</span>
+        <span class="nv">c</span>
+        <span class="p">(</span><span class="nb">expt</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">f</span>
+                <span class="nv">g</span>
+                <span class="nv">h</span>
+                <span class="p">(</span><span class="nb">-</span> <span class="nv">i</span> <span class="nv">j</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nf">pp</span> <span class="o">'</span><span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="p">(</span><span class="nb">expt</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">f</span> <span class="nv">g</span> <span class="nv">h</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">i</span> <span class="nv">j</span><span class="p">)))</span> <span class="p">))</span> <span class="nv">:width</span> <span class="mi">35</span><span class="p">)</span>
+<span class="nv">=&gt;</span> <span class="p">(</span><span class="nb">display</span>
+     <span class="p">(</span><span class="nb">+</span> <span class="nv">a</span>
+        <span class="nv">b</span>
+        <span class="nv">c</span>
+        <span class="p">(</span><span class="nb">expt</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">f</span> <span class="nv">g</span> <span class="nv">h</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">i</span> <span class="nv">j</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nf">pp</span> <span class="o">'</span><span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="p">(</span><span class="nb">expt</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">f</span> <span class="nv">g</span> <span class="nv">h</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">i</span> <span class="nv">j</span><span class="p">)))</span> <span class="p">))</span> <span class="nv">:width</span> <span class="mi">47</span><span class="p">)</span>
+<span class="nv">=&gt;</span> <span class="p">(</span><span class="nb">display</span>
+     <span class="p">(</span><span class="nb">+</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="p">(</span><span class="nb">expt</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">f</span> <span class="nv">g</span> <span class="nv">h</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">i</span> <span class="nv">j</span><span class="p">)))))</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><a id='P_procedure-formals'></a>
@@ -16925,7 +17299,7 @@ encoded format.</p>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="doc_program_structure.html">Program structure</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_regular_expressions.html">Regular Expressions</a> →</p>
+<p>← Previous: <a href="doc_program_structure.html">Program structure</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 26.0)</a> | Next: <a href="doc_regular_expressions.html">Regular Expressions</a> →</p>
 </div>
 </div>
 <div id="footnotes">
